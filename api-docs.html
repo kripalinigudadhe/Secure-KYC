@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - SecureKYC</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SecureKYC</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="platform-integration.html">Integration</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="docs-container">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-content">
+                <h3>API Documentation</h3>
+                <ul class="docs-menu">
+                    <li><a href="#getting-started" class="active">Getting Started</a></li>
+                    <li><a href="#authentication">Authentication</a></li>
+                    <li><a href="#endpoints">API Endpoints</a></li>
+                    <li><a href="#verification">Verification API</a></li>
+                    <li><a href="#consent">Consent Management</a></li>
+                    <li><a href="#webhooks">Webhooks</a></li>
+                    <li><a href="#sdks">SDKs</a></li>
+                    <li><a href="#errors">Error Handling</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-main">
+            <!-- Getting Started -->
+            <section id="getting-started" class="docs-section active">
+                <h1>Getting Started</h1>
+                <p>Welcome to the SecureKYC API documentation. Our REST API allows you to integrate seamless KYC verification into your platform.</p>
+
+                <div class="info-box">
+                    <h3>Base URL</h3>
+                    <code>https://api.securekyc.com/v1</code>
+                </div>
+
+                <h2>Quick Start</h2>
+                <p>Follow these steps to get started with the SecureKYC API:</p>
+                <ol>
+                    <li>Sign up for a developer account</li>
+                    <li>Get your API keys from the dashboard</li>
+                    <li>Make your first API call</li>
+                    <li>Handle the response</li>
+                </ol>
+
+                <h3>Your First API Call</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>cURL</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>curl -X GET "https://api.securekyc.com/v1/status" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"</code></pre>
+                </div>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="docs-section">
+                <h1>Authentication</h1>
+                <p>The SecureKYC API uses API keys for authentication. Include your API key in the Authorization header of every request.</p>
+
+                <h2>API Key Authentication</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Header</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>Keep your API keys secure!</strong> Never expose them in client-side code or public repositories.</p>
+                </div>
+
+                <h2>Rate Limiting</h2>
+                <p>API requests are rate limited to ensure fair usage:</p>
+                <ul>
+                    <li><strong>Starter:</strong> 100 requests per minute</li>
+                    <li><strong>Professional:</strong> 1000 requests per minute</li>
+                    <li><strong>Enterprise:</strong> Custom limits</li>
+                </ul>
+            </section>
+
+            <!-- API Endpoints -->
+            <section id="endpoints" class="docs-section">
+                <h1>API Endpoints</h1>
+                <p>Overview of all available API endpoints:</p>
+
+                <div class="endpoints-list">
+                    <div class="endpoint-item">
+                        <div class="endpoint-method get">GET</div>
+                        <div class="endpoint-path">/status</div>
+                        <div class="endpoint-description">Check API status</div>
+                    </div>
+                    <div class="endpoint-item">
+                        <div class="endpoint-method post">POST</div>
+                        <div class="endpoint-path">/verification/initiate</div>
+                        <div class="endpoint-description">Start verification process</div>
+                    </div>
+                    <div class="endpoint-item">
+                        <div class="endpoint-method get">GET</div>
+                        <div class="endpoint-path">/verification/{id}</div>
+                        <div class="endpoint-description">Get verification status</div>
+                    </div>
+                    <div class="endpoint-item">
+                        <div class="endpoint-method post">POST</div>
+                        <div class="endpoint-path">/consent/request</div>
+                        <div class="endpoint-description">Request data consent</div>
+                    </div>
+                    <div class="endpoint-item">
+                        <div class="endpoint-method get">GET</div>
+                        <div class="endpoint-path">/user/{id}/data</div>
+                        <div class="endpoint-description">Retrieve user KYC data</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verification API -->
+            <section id="verification" class="docs-section">
+                <h1>Verification API</h1>
+                <p>The verification API allows you to initiate and check the status of KYC verifications.</p>
+
+                <h2>Initiate Verification</h2>
+                <div class="endpoint-details">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/verification/initiate</span>
+                    </div>
+                </div>
+
+                <h3>Request Body</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "user_id": "user_12345",
+  "callback_url": "https://yourapp.com/webhook",
+  "verification_type": "full",
+  "required_documents": ["government_id", "address_proof"]
+}</code></pre>
+                </div>
+
+                <h3>Response</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "verification_id": "ver_abcd1234",
+  "status": "initiated",
+  "verification_url": "https://verify.securekyc.com/ver_abcd1234",
+  "expires_at": "2024-01-20T10:30:00Z"
+}</code></pre>
+                </div>
+
+                <h2>Check Verification Status</h2>
+                <div class="endpoint-details">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/verification/{verification_id}</span>
+                    </div>
+                </div>
+
+                <h3>Response</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "verification_id": "ver_abcd1234",
+  "status": "completed",
+  "result": "verified",
+  "user_data": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "verified_at": "2024-01-15T14:30:00Z"
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Consent Management -->
+            <section id="consent" class="docs-section">
+                <h1>Consent Management</h1>
+                <p>Manage user consent for data sharing across platforms.</p>
+
+                <h2>Request Data Consent</h2>
+                <div class="endpoint-details">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/consent/request</span>
+                    </div>
+                </div>
+
+                <h3>Request Body</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "user_id": "user_12345",
+  "platform_id": "platform_xyz",
+  "requested_data": ["personal_info", "address", "documents"],
+  "purpose": "Account verification for banking services"
+}</code></pre>
+                </div>
+
+                <h2>Retrieve User Data</h2>
+                <div class="endpoint-details">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/user/{user_id}/data</span>
+                    </div>
+                </div>
+
+                <p>This endpoint requires valid consent from the user.</p>
+
+                <h3>Query Parameters</h3>
+                <table class="params-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>consent_token</td>
+                            <td>string</td>
+                            <td>Valid consent token from user</td>
+                        </tr>
+                        <tr>
+                            <td>fields</td>
+                            <td>array</td>
+                            <td>Specific data fields to retrieve</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Webhooks -->
+            <section id="webhooks" class="docs-section">
+                <h1>Webhooks</h1>
+                <p>Webhooks allow you to receive real-time notifications about verification status changes.</p>
+
+                <h2>Webhook Events</h2>
+                <ul>
+                    <li><code>verification.completed</code> - Verification process completed</li>
+                    <li><code>verification.failed</code> - Verification failed</li>
+                    <li><code>consent.granted</code> - User granted data consent</li>
+                    <li><code>consent.revoked</code> - User revoked data consent</li>
+                </ul>
+
+                <h2>Webhook Payload</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "event": "verification.completed",
+  "data": {
+    "verification_id": "ver_abcd1234",
+    "user_id": "user_12345",
+    "status": "verified",
+    "timestamp": "2024-01-15T14:30:00Z"
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- SDKs -->
+            <section id="sdks" class="docs-section">
+                <h1>SDKs</h1>
+                <p>Official SDKs for popular programming languages:</p>
+
+                <div class="sdk-grid">
+                    <div class="sdk-card">
+                        <div class="sdk-icon">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <h3>JavaScript/Node.js</h3>
+                        <div class="code-block">
+                            <pre><code>npm install @securekyc/node-sdk</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="sdk-card">
+                        <div class="sdk-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h3>Python</h3>
+                        <div class="code-block">
+                            <pre><code>pip install securekyc-python</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="sdk-card">
+                        <div class="sdk-icon">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <h3>Java</h3>
+                        <div class="code-block">
+                            <pre><code>implementation 'com.securekyc:java-sdk:1.0.0'</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="sdk-card">
+                        <div class="sdk-icon">
+                            <i class="fab fa-php"></i>
+                        </div>
+                        <h3>PHP</h3>
+                        <div class="code-block">
+                            <pre><code>composer require securekyc/php-sdk</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Handling -->
+            <section id="errors" class="docs-section">
+                <h1>Error Handling</h1>
+                <p>The API uses conventional HTTP response codes to indicate success or failure.</p>
+
+                <h2>HTTP Status Codes</h2>
+                <table class="error-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>200</td>
+                            <td>OK - Request successful</td>
+                        </tr>
+                        <tr>
+                            <td>400</td>
+                            <td>Bad Request - Invalid request parameters</td>
+                        </tr>
+                        <tr>
+                            <td>401</td>
+                            <td>Unauthorized - Invalid API key</td>
+                        </tr>
+                        <tr>
+                            <td>403</td>
+                            <td>Forbidden - Insufficient permissions</td>
+                        </tr>
+                        <tr>
+                            <td>404</td>
+                            <td>Not Found - Resource not found</td>
+                        </tr>
+                        <tr>
+                            <td>429</td>
+                            <td>Too Many Requests - Rate limit exceeded</td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>Internal Server Error - Server error</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Error Response Format</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JSON</span>
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>{
+  "error": {
+    "code": "invalid_request",
+    "message": "The request is missing required parameters",
+    "details": {
+      "missing_fields": ["user_id", "verification_type"]
+    }
+  }
+}</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

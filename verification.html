@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification - SecureKYC</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SecureKYC</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="verification-container">
+        <div class="verification-content">
+            <div class="verification-header">
+                <h1>Identity Verification</h1>
+                <p>Complete your one-time verification to access all connected platforms</p>
+                
+                <div class="progress-bar">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <span>Personal Info</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <span>Documents</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <span>Verification</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">4</div>
+                        <span>Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Personal Information -->
+            <div class="verification-step active" id="step-1">
+                <div class="step-content">
+                    <h2>Personal Information</h2>
+                    <p>Please provide your basic personal details</p>
+
+                    <form class="verification-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nationality">Nationality</label>
+                                <select id="nationality" name="nationality" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Full Address</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-primary" onclick="nextStep()">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Document Upload -->
+            <div class="verification-step" id="step-2">
+                <div class="step-content">
+                    <h2>Document Upload</h2>
+                    <p>Upload your identity documents for verification</p>
+
+                    <div class="document-upload-grid">
+                        <div class="upload-card">
+                            <div class="upload-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <h3>Government ID</h3>
+                            <p>Driver's License, Passport, or National ID</p>
+                            <div class="upload-area" onclick="document.getElementById('govId').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload or drag and drop</span>
+                                <input type="file" id="govId" accept="image/*,.pdf" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="upload-card">
+                            <div class="upload-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3>Address Proof</h3>
+                            <p>Utility Bill, Bank Statement, or Lease Agreement</p>
+                            <div class="upload-area" onclick="document.getElementById('addressProof').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload or drag and drop</span>
+                                <input type="file" id="addressProof" accept="image/*,.pdf" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Biometric Verification -->
+            <div class="verification-step" id="step-3">
+                <div class="step-content">
+                    <h2>Biometric Verification</h2>
+                    <p>Complete the final verification step with biometric authentication</p>
+
+                    <div class="biometric-options">
+                        <div class="biometric-card">
+                            <div class="biometric-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h3>Live Photo Verification</h3>
+                            <p>Take a live photo to verify your identity</p>
+                            <button class="btn-primary">Start Camera</button>
+                        </div>
+
+                        <div class="biometric-card">
+                            <div class="biometric-icon">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <h3>Fingerprint Scan</h3>
+                            <p>Use your device's fingerprint scanner</p>
+                            <button class="btn-primary">Scan Fingerprint</button>
+                        </div>
+                    </div>
+
+                    <div class="mfa-section">
+                        <h3>Multi-Factor Authentication Setup</h3>
+                        <div class="mfa-options">
+                            <label class="mfa-option">
+                                <input type="radio" name="mfa" value="sms">
+                                <div class="mfa-content">
+                                    <i class="fas fa-sms"></i>
+                                    <span>SMS Authentication</span>
+                                </div>
+                            </label>
+                            <label class="mfa-option">
+                                <input type="radio" name="mfa" value="app">
+                                <div class="mfa-content">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Authenticator App</span>
+                                </div>
+                            </label>
+                            <label class="mfa-option">
+                                <input type="radio" name="mfa" value="email">
+                                <div class="mfa-content">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email Verification</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-primary" onclick="nextStep()">Complete Verification</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Completion -->
+            <div class="verification-step" id="step-4">
+                <div class="step-content">
+                    <div class="completion-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Verification Complete!</h2>
+                        <p>Your identity has been successfully verified. You can now use your verified credentials across all connected platforms.</p>
+
+                        <div class="completion-benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-rocket"></i>
+                                <span>Instant onboarding on partner platforms</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Secure and encrypted data storage</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-user-check"></i>
+                                <span>Full control over your data sharing</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <a href="dashboard.html" class="btn-primary">Go to Dashboard</a>
+                            <a href="platform-integration.html" class="btn-secondary">Explore Platforms</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
